@@ -7,25 +7,26 @@ import sys
 
 parser = argparse.ArgumentParser()
 
-parser.add_argument("-b", "--baud", type=int, default=9600, help="Baud rate.  Defaults to 9600")
-parser.add_argument("-p", "--port", type=str, default="/dev/ttyACM0", help="Port to monitor.  Examples: 'COM3' (Windows), '/dev/ttyACM0' (Linux). Defaults to '/dev/ttyACM0'")
-parser.add_argument("-m", "--monitor", help="Monitor and display port traffic?", action="store_true")
+parser.add_argument("-b", "--baud", type=int, default=9600, help="Baud rate.  Default is 9600.")
+parser.add_argument("-p", "--port", type=str, default="/dev/ttyACM0", help="Port to monitor.  Examples: 'COM3' (Windows), '/dev/ttyACM0' (Linux). Default is '/dev/ttyACM0'.")
+parser.add_argument("-m", "--monitor", help="Monitor and display port traffic? If this argument is not supplied, the port will be initialized, but not polled for traffic.", action="store_true")
+parser.add_argument("-w", "--wait", type=int, default=1, help="Number of seconds to wait before starting the polling loop. Default is 1.")
 args = parser.parse_args()
 
-COM = args.port
-BAUD = args.baud
+com_port = args.port
+baud_rate = args.baud
 
 try:
-	ser = serial.Serial(COM, BAUD, timeout = .1)
+	ser = serial.Serial(com_port, baud_rate, timeout = .1)
 except Exception as ex:
 	print(ex)
 	sys.exit(-1)
 
 try:
-	print('Waiting for device')
-	sleep(2)
-	print(ser.name)
-	print('(Ctrl-C to stop)')
+	print(f'Waiting {args.wait} second(s) for device')
+	sleep(args.wait)
+	print(f'Polling {ser.name}  (Ctrl-C to stop)')
+	#print('(Ctrl-C to stop)')
 except Exception as ex:
 	print(ex)
 	sys.exit(-1)
