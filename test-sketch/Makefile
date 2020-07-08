@@ -3,6 +3,7 @@ FQBN=arduino:avr:uno
 PORT=/dev/ttyACM0
 SKETCHNAME=TestSketch
 FORMATTER=clang-format -i
+EDITOR=gvim
 
 default:
 	@echo 'Targets:'
@@ -20,7 +21,7 @@ upload: compile
 	$(ARDCMD) upload -p $(PORT) --fqbn $(FQBN) $(SKETCHNAME)
 
 edit:
-	gvim $(SKETCHNAME)/$(SKETCHNAME).ino
+	$(EDITOR) $(SKETCHNAME)/$(SKETCHNAME).ino
 
 format:
 	$(FORMATTER) $(SKETCHNAME)/$(SKETCHNAME).ino
