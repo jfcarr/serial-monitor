@@ -2,6 +2,12 @@
 
 Serial monitor for Arduino.
 
+## Setup
+
+```
+pip3 install pyserial
+```
+
 ## Usage
 
 ```
