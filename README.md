@@ -2,9 +2,13 @@
 
 Serial monitor for Arduino.
 
-## Setup
+## Install Dependencies
+
+Uses Python 3
 
 ```
+pip3 install argparse
+
 pip3 install pyserial
 ```
 
